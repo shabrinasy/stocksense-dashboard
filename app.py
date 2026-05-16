@@ -20,7 +20,7 @@ df_demand, df_rfm = load_data()
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/2850/2850343.png", width=100)
     st.title("StockSense Analytics")
-    st.subheader("Tim CC26-PSU032")
+    st.subheader("Tim Capstone CC26-PSU032")
     st.markdown("""
     **Data Science Deliverables:**
     * ✅ End-to-End Data Wrangling
@@ -28,13 +28,13 @@ with st.sidebar:
     * ✅ Customer RFM Segmentation
     """)
     st.markdown("---")
-    st.success("🎯 Status Track: **100% Completed**")
+    st.success("🎯 Status Proyek: **100% Completed**")
 
 # --- HEADER PRESENTASI FINAL ---
 st.title("🚀 StockSense: Hasil Analisis Data & Strategi Bisnis Retail UMKM")
 st.markdown("""
 **Presentasi Final Capstone Project — Coding Camp 2026 Powered by DBS Foundation**
-Dashboard ini menyajikan kesimpulan analitik (Business Insights) yang mendasari pengembangan kecerdasan buatan dan integrasi sistem pada web utama *StockSense*.
+Dashboard ini menyajikan kesimpulan analitik (*Business Insights*) yang mendasari pengembangan kecerdasan buatan (*Demand Forecasting*) dan arsitektur integrasi sistem pada aplikasi utama *StockSense*.
 """)
 st.markdown("---")
 
@@ -50,7 +50,7 @@ tab1, tab2, tab3 = st.tabs([
 # ==============================================================================
 with tab1:
     st.header("1. Analisis Volume & Fluktuasi Pasar")
-    st.markdown("*Kesimpulan Business Understanding:* Retail UMKM memiliki tingkat kompleksitas produk yang tinggi, membuat manajemen stok manual sangat berisiko terhadap kerugian finansial.")
+    st.markdown("**Kesimpulan Business Understanding:** Retail UMKM memiliki tingkat kompleksitas produk yang tinggi, membuat manajemen stok konvensional sangat rentan terhadap kerugian finansial akibat *deadstock* maupun *opportunity loss*.")
     
     col1, col2, col3 = st.columns(3)
     total_rev = df_demand['Amount'].sum()
@@ -72,7 +72,7 @@ with tab1:
     ax_trend.set_ylabel("Unit Terjual")
     st.pyplot(fig_trend)
     
-    st.info(f"💡 **Temuan Kunci:** Data historis menunjukkan penjualan kategori **{selected_cat}** memiliki pola naik-turun yang tajam. Hal ini memvalidasi bahwa penentuan stok berbasis intuisi tidak efektif, sehingga diperlukan model prediktif berbasis AI.")
+    st.info(f"💡 **Temuan Kunci:** Data historis menunjukkan penjualan kategori **{selected_cat}** memiliki volatilitas pola permintaan yang tajam. Hal ini memvalidasi bahwa penentuan kuantitas stok berbasis intuisi tidak efektif, sehingga diperlukan implementasi model prediktif.")
 
 # ==============================================================================
 # TAB 2: EXTERNAL FACTORS
@@ -80,7 +80,7 @@ with tab1:
 with tab2:
     st.header("2. Pembuktian Pengaruh Faktor Eksternal")
     st.markdown("""
-    *Kesimpulan Analisis Data:* Pengujian statistik dan visualisasi data membuktikan secara nyata bahwa **Kondisi Cuaca** dan **Hari Libur/Promo** memiliki korelasi kuat terhadap volume penjualan produk.
+    **Kesimpulan Analisis Data:** Pengujian visualisasi data membuktikan secara empiris bahwa **Kondisi Cuaca** dan **Hari Libur/Promo** memiliki korelasi dan pengaruh langsung terhadap volume penjualan produk.
     """)
     
     col_a, col_b = st.columns(2)
@@ -90,7 +90,7 @@ with tab2:
         fig_weather, ax_w = plt.subplots(figsize=(6, 4))
         sns.boxplot(data=df_demand[df_demand['Category'] == selected_cat], x='Weather Condition', y='Quantity', ax=ax_w, palette='Blues')
         st.pyplot(fig_weather)
-        st.write("👉 **Insight:** Pergeseran nilai median penjualan pada cuaca tertentu membuktikan bahwa faktor atmosferik wajib dimasukkan sebagai *fitur input* penting dalam melatih model kecerdasan buatan (AI Forecasting).")
+        st.write("👉 **Insight:** Pergeseran nilai median penjualan pada kondisi cuaca tertentu membuktikan bahwa faktor atmosferik eksternal valid untuk digunakan sebagai *input feature* penting dalam melatih model cerdas (AI Forecasting).")
 
     with col_b:
         st.subheader("Analisis Dampak Hari Libur & Kampanye Promo")
@@ -98,14 +98,14 @@ with tab2:
         sns.boxplot(data=df_demand[df_demand['Category'] == selected_cat], x='Holiday/Promotion', y='Quantity', ax=ax_h, palette='Oranges')
         ax_h.set_xticklabels(['Hari Biasa', 'Libur/Promo'])
         st.pyplot(fig_h)
-        st.write("👉 **Insight:** Terjadi lonjakan volume penjualan yang signifikan pada hari libur nasional. Data ini berhasil diolah sebagai komponen musiman untuk memicu fitur *Smart Alert* ketersediaan stok.")
+        st.write("👉 **Insight:** Terjadi lonjakan volume penjualan yang signifikan pada hari libur nasional. Data ini berhasil diolah sebagai komponen musiman untuk memicu fitur otomatisasi pasokan sebelum tanggal puncak tiba.")
 
 # ==============================================================================
 # TAB 3: CUSTOMER SEGMENTATION
 # ==============================================================================
 with tab3:
     st.header("3. Hasil Segmentasi Perilaku Pelanggan (RFM)")
-    st.markdown("Dengan memetakan profil pelanggan, retail UMKM dapat mengambil keputusan strategis terkait prioritas alokasi stok ketika ketersediaan barang di gudang sedang terbatas.")
+    st.markdown("Dengan memetakan profil pelanggan, entitas bisnis retail dapat mengambil keputusan strategis terkait prioritas alokasi stok ketika ketersediaan barang di gudang sedang terbatas.")
     
     col_rfm_a, col_rfm_b = st.columns([1, 2])
     
@@ -114,8 +114,8 @@ with tab3:
         st.dataframe(df_rfm['Segment'].value_counts().to_frame("Jumlah Customer"), use_container_width=True)
         st.success("""
         🎯 **Rekomendasi Strategi Bisnis Terapan:**
-        1. **Champions (Loyalitas Tertinggi):** Berikan prioritas jatah stok utama dan program *reward* eksklusif.
-        2. **At Risk (Hampir Kehilangan):** Aktifkan promosi terarah (*targeted marketing*) melalui aplikasi web untuk mengembalikan kebiasaan belanja mereka.
+        1. **Champions (Loyalitas Tertinggi):** Rekomendasi alokasi prioritas inventaris utama dan program retensi eksklusif.
+        2. **At Risk (Rentan Churn):** Aktivitas pemasaran terarah (*targeted marketing*) melalui platform web untuk mengembalikan frekuensi belanja.
         """)
 
     with col_rfm_b:
@@ -136,7 +136,7 @@ with tab3:
 st.markdown("---")
 st.subheader("🔗 Arsitektur Integrasi & End Product")
 st.markdown("""
-Bagaimana hasil kerja **Data Science Track** ini terhubung ke produk akhir website *StockSense*?
-1. **Pondasi Fitur:** Variabel cuaca, hari libur, dan tren kategori yang divalidasi di sini telah sukses diekstraksi menjadi data latih untuk model **AI Demand Forecasting (LSTM/GRU)** yang dikembangkan oleh tim AI Engineer.
-2. **Implementasi ke Web Utama (Full-Stack):** Logika visualisasi tren, filter kategori, serta hasil segmentasi pelanggan (RFM) ini diserahkan kepada tim Full-Stack (Hazim & Ray) sebagai *blueprint* visual untuk membangun antarmuka web akhir yang diakses langsung oleh pemilik UMKM.
+Bagaimana output dari **Data Science Track** ini diintegrasikan ke dalam ekosistem produk akhir *StockSense*?
+1. **Pondasi Fitur Pemodelan:** Variabel cuaca, hari libur, dan tren kategori yang telah divalidasi pada dashboard ini sukses diekstraksi menjadi data latih (*training features*) untuk model **AI Demand Forecasting (LSTM/GRU)** yang dikembangkan oleh *AI Engineering Team*.
+2. **Implementasi Komponen Aplikasi:** Logika bisnis visualisasi tren, fungsionalitas filter kategori, serta matriks segmentasi pelanggan (RFM) diserahkan kepada *Full-Stack Developer Team* sebagai blueprint teknis dalam membangun antarmuka web akhir (*production-ready web application*) yang diakses langsung oleh pengguna UMKM.
 """)
